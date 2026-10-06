@@ -1,0 +1,42 @@
+[project]
+name = "robomme"
+version = "0.1.0"
+description = "Add your description here"
+readme = "readme.md"
+requires-python = ">=3.11"
+dependencies = [
+    "mani-skill",
+    "opencv-python>=4.11.0.86",
+    "setuptools==80.9.0",
+    "torch==2.9.1",
+    "torchvision==0.24.1",
+]
+
+[project.optional-dependencies]
+dev = ["opencv-python", "pytest"]
+
+[tool.uv.sources]
+mani-skill = { git = "https://github.com/YinpeiDai/ManiSkill.git", rev = "07be6fbc66350ddca200abfb0a11b692f078f7fd" }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+server = [
+    "dm-tree==0.1.8",
+    "flask>=3.1.3",
+    "msgpack==1.1.2",
+    "websockets==15.0.1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/robomme"]
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: slow-running tests",
+    "gpu: tests requiring GPU/display/headless rendering stack",
+    "dataset: tests that generate/use temporary datasets",
+    "lightweight: tests that do not require generated dataset",
+]
